@@ -5,8 +5,19 @@ defmodule CommunityWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", CommunityWeb do
+  scope "/" do
     pipe_through :api
+
+    forward "/graphiql", Absinthe.Plug.GraphiQL,
+      schema: CommunityWeb.Schema,
+      interface: :simple,
+      context: %{pubsub: CommunityWeb.Endpoint}
+  end
+
+  scope "/api" do
+    pipe_through :api
+
+    forward "/", Absinthe.Plug, schema: CommunityWeb.Schema
   end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
