@@ -53,11 +53,10 @@ defmodule CommunityWeb.NewsResolverTest do
 
       conn = post(conn, "/api", %{"query" => query})
 
-      #assert [subject] = json_response(conn, 200)["data"]["createLink"]
-      subject = json_response(conn, 200)["data"]["createLink"]
+      assert subject = json_response(conn, 200)["data"]["createLink"]
+      assert subject["id"]
       assert subject["url"] == url
       assert subject["description"] == description
-
     end
   end
 end
