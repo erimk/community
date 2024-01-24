@@ -1,5 +1,8 @@
 defmodule Community.News.Link do
+  @moduledoc false
+
   use Ecto.Schema
+
   import Ecto.Changeset
 
   schema "links" do

@@ -1,4 +1,7 @@
 defmodule CommunityWeb.NewsResolver do
+  @moduledoc """
+  This is my GraphQL
+  """
   alias Community.News
 
   @spec all_links(any(), any(), any()) :: {:ok, any()}
@@ -7,10 +10,10 @@ defmodule CommunityWeb.NewsResolver do
   end
 
   def create_link(_root, args, _info) do
-    # TODO: add detailed error message handling later
     case News.create_link(args) do
       {:ok, link} ->
         {:ok, link}
+
       _error ->
         {:error, "could not create link"}
     end

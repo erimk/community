@@ -34,7 +34,6 @@ defmodule CommunityWeb.NewsResolverTest do
 
   describe "create_link/3" do
     test "returns ok when valid data", %{conn: conn} do
-
       url = "http://npmjs.com/package/graphql-tools"
       description = "Best Tools!"
 
