@@ -56,7 +56,7 @@ defmodule Community.MixProject do
       {:absinthe, "~> 1.6"},
       {:absinthe_plug, "~> 1.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:ex_machina, "~> 2.7.0"},
+      {:ex_machina, "~> 2.7.0", only: :test},
       {:excoveralls, "~> 0.18", only: :test}
     ]
   end

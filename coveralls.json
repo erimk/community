@@ -4,7 +4,7 @@
         "minimum_coverage": 90.0
     },
     "terminal_options": {
-        "print_files": true
+        "print_files": false
     },
     "skip_files": [
         "deps",

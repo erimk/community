@@ -1,7 +1,7 @@
 defmodule CommunityWeb.NewsResolverTest do
   use CommunityWeb.ConnCase, async: true
 
-  import Community.NewsFixtures
+  import Community.Factory
 
   setup %{conn: conn} do
     conn = put_req_header(conn, "accept", "application/json")
@@ -11,7 +11,7 @@ defmodule CommunityWeb.NewsResolverTest do
 
   describe "all_links/3" do
     test "returns ok when valid data", %{conn: conn} do
-      link = link_fixture()
+      link = insert(:link)
 
       query = """
       {
