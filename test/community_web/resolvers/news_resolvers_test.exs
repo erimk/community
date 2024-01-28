@@ -34,28 +34,39 @@ defmodule CommunityWeb.NewsResolverTest do
 
   describe "create_link/3" do
     test "returns ok when valid data", %{conn: conn} do
-      url = "http://npmjs.com/package/graphql-tools"
-      description = "Best Tools!"
+      params = params_for(:link)
 
-      query = """
-      mutation {
-        createLink(
-          url: "#{url}",
-          description: "#{description}",
-        ) {
-          id
-          url
-          description
-        }
-      }
-      """
-
-      conn = post(conn, "/api", %{"query" => query})
+      conn = graphql_create_link(conn, params)
 
       assert subject = json_response(conn, 200)["data"]["createLink"]
       assert subject["id"]
-      assert subject["url"] == url
-      assert subject["description"] == description
+      assert subject["url"] == params.url
+      assert subject["description"] == params.description
     end
+
+    test "returns error when url is null", %{conn: conn} do
+      params = params_for(:link) |> Map.merge(%{url: nil})
+
+      conn = graphql_create_link(conn, params)
+
+      assert [%{"message" => "could not create link"}] = json_response(conn, 200)["errors"]
+    end
+  end
+
+  defp graphql_create_link(conn, params) do
+    query = """
+    mutation {
+      createLink(
+        url: "#{params.url}",
+        description: "#{params.description}",
+      ) {
+        id
+        url
+        description
+      }
+    }
+    """
+
+    post(conn, "/api", %{"query" => query})
   end
 end
