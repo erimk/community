@@ -1,0 +1,23 @@
+{
+    "coverage_options": {
+        "treat_no_relevant_lines_as_covered": true,
+        "minimum_coverage": 90.0
+    },
+    "terminal_options": {
+        "print_files": true
+    },
+    "skip_files": [
+        "deps",
+        "priv/",
+        "test/",
+        "lib/community/application.ex",
+        "lib/community_web.ex",
+        "lib/community/mailer.ex",
+        "lib/community/repo.ex",
+        "lib/community_web/endpoint.ex",
+        "lib/community_web/gettext.ex",
+        "lib/community_web/router.ex",
+        "lib/community_web/schema.ex",
+        "lib/community_web/telemetry.ex"
+    ]
+}

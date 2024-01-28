@@ -9,7 +9,15 @@ defmodule Community.MixProject do
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: [
+        coveralls: :test,
+        "coveralls.detail": :test,
+        "coveralls.post": :test,
+        "coveralls.html": :test,
+        "coveralls.cobertura": :test
+      ]
     ]
   end
 
@@ -48,7 +56,8 @@ defmodule Community.MixProject do
       {:absinthe, "~> 1.6"},
       {:absinthe_plug, "~> 1.5"},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false},
-      {:ex_machina, "~> 2.7.0"}
+      {:ex_machina, "~> 2.7.0"},
+      {:excoveralls, "~> 0.18", only: :test}
     ]
   end
 
@@ -63,7 +72,7 @@ defmodule Community.MixProject do
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
-      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "test"],
+      test: ["ecto.drop", "ecto.create --quiet", "ecto.migrate --quiet", "test --cover"],
       lint: ["format", "credo --strict"]
     ]
   end
