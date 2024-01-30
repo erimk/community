@@ -2,6 +2,7 @@ defmodule CommunityWeb.NewsResolverTest do
   use CommunityWeb.ConnCase, async: true
 
   import Community.Factory
+  import Community.Helpers
 
   setup %{conn: conn} do
     conn = put_req_header(conn, "accept", "application/json")
@@ -9,21 +10,21 @@ defmodule CommunityWeb.NewsResolverTest do
     {:ok, conn: conn}
   end
 
+  @all_links """
+  {
+    allLinks {
+      id
+      url
+      description
+    }
+  }
+  """
+
   describe "all_links/3" do
     test "returns ok when valid data", %{conn: conn} do
       link = insert(:link)
 
-      query = """
-      {
-        allLinks {
-          id
-          url
-          description
-        }
-      }
-      """
-
-      conn = post(conn, "/api", %{"query" => query})
+      conn = graphql(conn, @all_links)
 
       assert [subject] = json_response(conn, 200)["data"]["allLinks"]
       assert subject["id"] == "#{link.id}"
