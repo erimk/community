@@ -19,6 +19,21 @@ defmodule CommunityWeb.NewsResolverTest do
     }
   }
   """
+  @create_link """
+  mutation(
+      $url: String!,
+      $description: String!
+    ) {
+    createLink(
+      url: $url,
+      description: $description,
+    ) {
+      id
+      url
+      description
+    }
+  }
+  """
 
   describe "all_links/3" do
     test "returns ok when valid data", %{conn: conn} do
@@ -37,7 +52,7 @@ defmodule CommunityWeb.NewsResolverTest do
     test "returns ok when valid data", %{conn: conn} do
       params = params_for(:link)
 
-      conn = graphql_create_link(conn, params)
+      conn = graphql(conn, @create_link, params)
 
       assert subject = json_response(conn, 200)["data"]["createLink"]
       assert subject["id"]
