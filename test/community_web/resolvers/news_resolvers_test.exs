@@ -68,21 +68,4 @@ defmodule CommunityWeb.NewsResolverTest do
       assert [%{"message" => "could not create link"}] = json_response(conn, 200)["errors"]
     end
   end
-
-  defp graphql_create_link(conn, params) do
-    query = """
-    mutation {
-      createLink(
-        url: "#{params.url}",
-        description: "#{params.description}",
-      ) {
-        id
-        url
-        description
-      }
-    }
-    """
-
-    post(conn, "/api", %{"query" => query})
-  end
 end
